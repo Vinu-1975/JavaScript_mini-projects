@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu-2</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        header {
+            padding: 10px;
+        }
+
+        .headbox {
+            width: 20%;
+            margin: 10px auto;
+            background-color: blueviolet;
+            color: white;
+            text-align: center;
+        }
+
+        nav {
+            padding: 20px;
+            background-color: beige;
+            text-transform: capitalize;
+            text-align: center;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+        }
+
+        .btns {
+            border: none;
+            padding: 15px 20px;
+            background-color: blueviolet;
+            color: white;
+            border-radius: 7px;
+            cursor: pointer;
+            text-transform: capitalize;
+        }
+
+        .cards {
+            padding: 50px;
+            text-transform: capitalize;
+            /* display: flex;
+            flex-direction: row;
+            justify-content: space-around; */
+            text-align: center;
+            display: grid;
+            grid-template-columns: auto auto auto auto auto;
+        }
+
+        .card {
+            border: 2px solid black;
+            border-radius: 10px;
+            height: 7rem;
+            width: 8rem;
+            margin: 50px;
+            background-color: blueviolet;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="headbox">
+            <h1>Learn4U</h1>
+        </div>
+    </header>
+    <nav class="buttons">
+
+    </nav>
+    <main class="cards">
+
+    </main>
+    <script>
+        const list = [
+            {
+                id: 1,
+                sub: "maths",
+                topic: "algebra",
+            },
+            {
+                id: 2,
+                sub: "english",
+                topic: 'literature',
+            },
+            {
+                id: 3,
+                sub: 'maths',
+                topic: 'calculus',
+            },
+            {
+                id: 4,
+                sub: 'maths',
+                topic: 'probability',
+            },
+            {
+                id: 5,
+                sub: 'cse',
+                topic: 'cprogramming',
+            },
+            {
+                id: 6,
+                sub: 'cse',
+                topic: 'uid',
+            },
+            {
+                id: 7,
+                sub: 'maths',
+                topic: 'mvv',
+            },
+            {
+                id: 8,
+                sub: 'maths',
+                topic: 'svv',
+            },
+            {
+                id: 9,
+                sub: 'cse',
+                topic: 'dsa',
+            },
+            {
+                id: 10,
+                sub: 'eee',
+                topic: 'electronics',
+            },
+            {
+                id: 11,
+                sub: 'mee',
+                topic: 'physics',
+            },
+            {
+                id: 12,
+                sub: 'finance',
+                topic: "trading",
+            },
+        ];
+
+        const main = document.querySelector('.cards');
+        // console.log(main);
+        const buttons = document.querySelector('.buttons');
+
+        window.addEventListener('DOMContentLoaded', function () {
+            displayCards(list);
+            displayBtns();
+        })
+
+        function displayBtns() {
+            const categories = list.reduce(function (cat, item) {
+                if (!cat.includes(item.sub)) {
+                    cat.push(item.sub);
+                }
+                return cat;
+            }, ['all'])
+            // console.log(categories);
+            const displayBtns = categories.map(function (btn) {
+                return `<button class="btns" data-sub=${btn}>${btn}</button>`
+            }).join("")
+            buttons.innerHTML = displayBtns;
+            const btns = document.querySelectorAll(".btns");
+            // console.log(btns);
+            btns.forEach(function (btn) {
+                btn.addEventListener('click', function (e) {
+                    const category = e.currentTarget.dataset.sub;
+                    // console.log(category);
+                    const showCategory = list.filter(function (item) {
+                        if (item.sub === category) {
+                            return item;
+                        }
+                    })
+                    if (category == 'all') {
+                        displayCards(list);
+                    } else {
+                        displayCards(showCategory);
+                    }
+                })
+            })
+        }
+        function displayCards(items) {
+            const displayItems = items.map(function (item) {
+                return `<div class="card">
+            <h2 class="topic">${item.topic}</h2>
+            <h3 class="subject">${item.sub}</h3>
+        </div>`
+            }).join("");
+            main.innerHTML = displayItems;
+            // console.log(displayItems);
+        }
+    </script>
+</body>
+
+</html>
